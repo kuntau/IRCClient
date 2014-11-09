@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #include <iostream>
@@ -121,6 +121,23 @@ void ctcpCommand(std::string arguments, IRCClient* client)
     client->SendIRC("PRIVMSG " + to + " :\001" + text + "\001");
 }
 
+void onPrivMsg(IRCMessage message, IRCClient* client)
+{
+    // check who can control us
+    if (message.prefix.nick != "Kuntau")
+        return;
+
+    // received text
+    std::string text = message.parameters.at(message.parameters.size() - 1);
+
+    if (text == "join hq")
+        client->SendIRC("JOIN #kuntau");
+    if (text == "join #flood")
+        client->SendIRC("JOIN #flood");
+    if (text == "quit now")
+        client->SendIRC("QUIT");
+}
+
 ThreadReturn inputThread(void* client)
 {
     std::string command;
@@ -172,6 +189,9 @@ int main(int argc, char* argv[])
 
     IRCClient client;
 
+    // hook privmsg
+    client.HookIRCCommand("PRIVMSG", &onPrivMsg);
+
     client.Debug(true);
 
     // Start the input thread
@@ -203,4 +223,5 @@ int main(int argc, char* argv[])
             std::cout << "Disconnected." << std::endl;
         }
     }
+    return 1;
 }
