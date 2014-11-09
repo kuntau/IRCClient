@@ -59,7 +59,7 @@ void IRCClient::HandleCTCP(IRCMessage message)
     {
         if (text == "VERSION") // Respond to CTCP VERSION
         {
-            SendIRC("NOTICE " + message.prefix.nick + " :\001VERSION Open source IRC client by Fredi Machado - https://github.com/Fredi/IRCClient \001");
+            SendIRC("NOTICE " + message.prefix.nick + " :\001VERSION IRC Client modified by Kuntau v0.01 Preview - http://papsb.com.my\001");
             return;
         }
 

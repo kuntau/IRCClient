@@ -60,7 +60,7 @@ bool IRCClient::Login(std::string nick, std::string user)
 
     if (SendIRC("HELLO"))
         if (SendIRC("NICK " + nick))
-            if (SendIRC("USER " + user + " 8 * :Cpp IRC Client"))
+            if (SendIRC("USER " + user + " 8 * :I'm not a mIRC Client"))
                 return true;
 
     return false;
