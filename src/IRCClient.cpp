@@ -58,10 +58,9 @@ bool IRCClient::Login(std::string nick, std::string user)
     _nick = nick;
     _user = user;
 
-    if (SendIRC("HELLO"))
-        if (SendIRC("NICK " + nick))
-            if (SendIRC("USER " + user + " 8 * :I'm not a mIRC Client"))
-                return true;
+    if (SendIRC("NICK " + nick))
+        if (SendIRC("USER " + user + " 8 * :I'm not a mIRC Client"))
+            return true;
 
     return false;
 }
@@ -147,7 +146,8 @@ void IRCClient::Parse(std::string data)
         (this->*cmdHandler.handler)(ircMessage);
     }
     else if (_debug)
-        std::cout << original << std::endl;
+        // This is where all the MODE happened. Need to extact this and parse
+        std::cout << original << " kuntau" << std::endl;
 
     // Try to call hook (if any matches)
     CallHook(command, ircMessage);
