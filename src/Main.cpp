@@ -179,7 +179,7 @@ int main(int argc, char* argv[])
 
     char* host = argv[1];
     int port = atoi(argv[2]);
-    std::string nick("MyIRCClient");
+    std::string nick("Kuntau[BOT]");
     std::string user("IRCClient");
 
     if (argc >= 4)
